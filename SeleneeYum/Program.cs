@@ -22,7 +22,7 @@ namespace SeleneeYum
 
                 GoToGoogle(driver);
 
-                GoToLostPet(driver);
+                FindLostPet(driver);
             }
         }
 
@@ -50,9 +50,24 @@ namespace SeleneeYum
             var happy = config["name"];
 
         }
-        private static string GoToLostPet(IWebDriver driver)
+        private static string FindLostPet(IWebDriver driver)
         {
-            return string.Empty;
+            var lostPetUrl = "https://www.helpinglostpets.com/petdetail/PostPetMStart.aspx";
+            var agreeCheckboxId = "MainContent_chkAgree";
+            var startButtonId = "MainContent_UpdatePanel_SaveButton";
+            try
+            {
+                driver.Navigate().GoToUrl(lostPetUrl);
+                driver.FindElement(By.Id(agreeCheckboxId)).Click();
+                driver.FindElement(By.Id(startButtonId)).Click();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
+            return lostPetUrl;
         }
 
         private string FillInDetails()
